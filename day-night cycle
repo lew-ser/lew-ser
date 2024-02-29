@@ -1,2 +1,31 @@
 // light sensor to sense an imaginary day-night cycle
 // needed: LDR and 1 servo motor
+
+#include <Servo.h>
+
+int Servo1 = 6;
+int AnaSensor1 = A0;
+
+Servo myServoServo1;
+
+void setup() {
+  myServoServo1.attach(6);
+  pinMode(AnaSensor1, INPUT);
+  Serial.begin(9600);
+
+  myServoServo1.write(constrain(map(0, -100, 100, 0, 180), 0, 180));
+
+}
+
+void loop() {
+  if (analogRead(AnaSensor1) >= 750 && analogRead(AnaSensor1) <= 800) {
+    Serial.println(analogRead(AnaSensor1));
+    delay(5000);
+    myServoServo1.write(constrain(map(100, -100, 100, 0, 180), 0, 180));
+    while(true);
+  } else if (analogRead(AnaSensor1) >= 800) {
+    Serial.println(analogRead(AnaSensor1));
+    myServoServo1.write(constrain(map(-100, -100, 100, 0, 180), 0, 180));
+  }
+
+}
